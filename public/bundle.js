@@ -13080,7 +13080,7 @@ var singleton = null;
 var	singletonCounter = 0;
 var	stylesInsertedAtTop = [];
 
-var	fixUrls = __webpack_require__(262);
+var	fixUrls = __webpack_require__(263);
 
 module.exports = function(list, options) {
 	if (typeof DEBUG !== "undefined" && DEBUG) {
@@ -13446,10 +13446,10 @@ var Timer = __webpack_require__(257);
 var Countdown = __webpack_require__(258);
 
 // Load foundation
-__webpack_require__(260);
+__webpack_require__(261);
 $(document).foundation();
 
-__webpack_require__(263);
+__webpack_require__(264);
 
 var hashHistory = Router.hashHistory;
 
@@ -28656,18 +28656,13 @@ var Main = function (_React$Component) {
       return React.createElement(
         'div',
         null,
+        React.createElement(Nav, null),
         React.createElement(
           'div',
-          null,
+          { className: 'grid-x align-center' },
           React.createElement(
             'div',
-            null,
-            React.createElement(Nav, null),
-            React.createElement(
-              'p',
-              null,
-              'Main.jsx rendered'
-            ),
+            { className: 'cell small-centered medium-6 large-4' },
             this.props.children
           )
         )
@@ -28791,15 +28786,27 @@ module.exports = Timer;
 
 var React = __webpack_require__(4);
 var Clock = __webpack_require__(259);
+var CountdownForm = __webpack_require__(260);
 
 var Countdown = React.createClass({
   displayName: 'Countdown',
 
+  getInitialState: function getInitialState() {
+    return { count: 0 };
+  },
+  handleSetCountdown: function handleSetCountdown(seconds) {
+    this.setState({
+      count: seconds
+    });
+  },
   render: function render() {
+    var count = this.state.count;
+
     return React.createElement(
       'div',
       null,
-      React.createElement(Clock, { totalSeconds: 129 })
+      React.createElement(Clock, { totalSeconds: count }),
+      React.createElement(CountdownForm, { onSetCountdown: this.handleSetCountdown })
     );
   }
 });
@@ -28859,10 +28866,51 @@ module.exports = Clock;
 /* 260 */
 /***/ (function(module, exports, __webpack_require__) {
 
+"use strict";
+
+
+var React = __webpack_require__(4);
+
+var CountdownForm = React.createClass({
+  displayName: 'CountdownForm',
+
+  onSubmit: function onSubmit(e) {
+    e.preventDefault();
+    var strSeconds = this.refs.seconds.value;
+
+    if (strSeconds.match(/^[0-9]*$/)) {
+      this.refs.seconds.value = '';
+      this.props.onSetCountdown(parseInt(strSeconds, 10));
+    }
+  },
+  render: function render() {
+    return React.createElement(
+      'div',
+      null,
+      React.createElement(
+        'form',
+        { ref: 'form', onSubmit: this.onSubmit, className: 'countdown-form' },
+        React.createElement('input', { type: 'text', ref: 'seconds', placeholder: 'Enter Time in seconds' }),
+        React.createElement(
+          'button',
+          { className: 'button expanded' },
+          'Start'
+        )
+      )
+    );
+  }
+});
+
+module.exports = CountdownForm;
+
+/***/ }),
+/* 261 */
+/***/ (function(module, exports, __webpack_require__) {
+
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(261);
+var content = __webpack_require__(262);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -28887,7 +28935,7 @@ if(false) {
 }
 
 /***/ }),
-/* 261 */
+/* 262 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(114)(undefined);
@@ -28901,7 +28949,7 @@ exports.push([module.i, "@charset \"UTF-8\";@media print,screen and (min-width:4
 
 
 /***/ }),
-/* 262 */
+/* 263 */
 /***/ (function(module, exports) {
 
 
@@ -28996,13 +29044,13 @@ module.exports = function (css) {
 
 
 /***/ }),
-/* 263 */
+/* 264 */
 /***/ (function(module, exports, __webpack_require__) {
 
 // style-loader: Adds some css to the DOM by adding a <style> tag
 
 // load the styles
-var content = __webpack_require__(264);
+var content = __webpack_require__(265);
 if(typeof content === 'string') content = [[module.i, content, '']];
 // Prepare cssTransformation
 var transform;
@@ -29027,7 +29075,7 @@ if(false) {
 }
 
 /***/ }),
-/* 264 */
+/* 265 */
 /***/ (function(module, exports, __webpack_require__) {
 
 exports = module.exports = __webpack_require__(114)(undefined);
