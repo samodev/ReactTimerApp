@@ -6,14 +6,10 @@ module.exports = {
     'script-loader!foundation-sites/dist/js/foundation.min.js',
     './app/app.jsx'
   ],
-  externals: {
-    jquery: 'jQuery',
-    foundation: 'Foundation'
-  },
   plugins: [
     new webpack.ProvidePlugin({
-      '$': 'jquery',
-      'jQuery': 'jquery'
+      'window.$': 'jquery',
+      'window.jQuery': 'jquery'
     })
   ],
   output: {
@@ -28,6 +24,7 @@ module.exports = {
       Nav: 'app/components/Nav.jsx',
       Timer: 'app/components/Timer.jsx',
       Countdown: 'app/components/Countdown.jsx',
+      Clock: 'app/components/Clock.jsx',
       applicationStyles: 'app/styles/app.scss'
     },
     extensions: ['*', '.js', '.jsx']
